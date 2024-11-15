@@ -1,0 +1,32 @@
+version: "3"
+
+vars:
+  # Where the tweet-headers.js file is located
+
+  BACKUP_PATH: .
+
+tasks:
+  count:
+    desc: "Count tweets by year"
+    aliases: [default]
+    silent: true
+    cmds:
+      - |
+        cd {{ .BACKUP_PATH }}
+        bash {{ .TASKFILE_DIR }}/count_tweets.sh
+
+  split:
+    desc: "Split tweets by year"
+    silent: true
+    cmds:
+      - |
+        cd {{ .BACKUP_PATH }}
+        bash {{ .TASKFILE_DIR }}/split_tweets.sh
+
+  clean:
+    desc: "Clean up split tweet files"
+    silent: true
+    cmds:
+      - |
+        cd {{ .BACKUP_PATH }}
+        rm tweet_headers_*.js
